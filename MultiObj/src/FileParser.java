@@ -24,11 +24,15 @@ public class FileParser {
 		int numReq = 0; // Need this!
 		BufferedReader br = null;
 		String currentLine;
+		int counter = 0;
 
 		br = new BufferedReader(new FileReader(Constants.FILE_NAME));
 
-		while ((currentLine = br.readLine()).length() == 1) {
-			System.out.println(currentLine + " This should be saved in the nrp object");
+		while ((currentLine = br.readLine()) != null) {
+			counter++; // Skips line 0
+			if (counter == 2) {
+				System.out.println(currentLine + " This should be saved in the nrp object");
+			}
 		}
 		br.close();
 
