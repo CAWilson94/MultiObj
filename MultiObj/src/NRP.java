@@ -14,8 +14,9 @@ public class NRP {
 	private int reqLevel = 0;
 	private int numReq = 0;
 	private int reqCost = 0;
+	private int dependancies = 0;
 
-	public NRP(int reqLevel, int numReq, int reqCost) {
+	public NRP(int reqLevel, int numReq, int reqCost, int dependancies) {
 
 	}
 
@@ -41,6 +42,14 @@ public class NRP {
 
 	public void setReqCost(int reqCost) {
 		this.reqCost = reqCost;
+	}
+
+	public int getDependancies() {
+		return dependancies;
+	}
+
+	public void setDependancies(int dependancies) {
+		this.dependancies = dependancies;
 	}
 
 }
