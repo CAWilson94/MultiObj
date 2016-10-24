@@ -7,5 +7,6 @@
 public class Constants {
 	
 	public static final int COST_RATIO = 0;
+	public static final String FILE_NAME = "nrp1.txt";
 
 }
