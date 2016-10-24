@@ -25,6 +25,8 @@ public class FileParser {
 	 */
 	public static void main(String[] args) throws IOException {
 
+		NRP nrp = new NRP();
+
 		BufferedReader br = null;
 		String currentLine;
 		int counter = 0;
@@ -37,9 +39,18 @@ public class FileParser {
 			// Check out the level of requirements
 			if (counter == 1) {
 				System.out.println(currentLine + " Num requirements");
+				nrp.setReqLevel(Integer.parseInt(currentLine));
 				int reqCounter = Integer.parseInt(currentLine) * 2;
 				// go through cost and level for each requirement
 				while (reqCounter != 0) {
+
+					/**
+					 * if words > 1: count how many there are and that is equal
+					 * to cost - Add this to cost of requirement
+					 * 
+					 * Else, one word is the number of requirements
+					 */
+
 					counter++; // original counter
 					System.out.println(br.readLine());
 					reqCounter--; // requirements counter
@@ -53,29 +64,33 @@ public class FileParser {
 			while (words == 2) {
 				System.out.println(currentLine);
 				String[] tokens = currentLine.split("\\s+");
+				// Need to add to ID A list in NRP
 				System.out.println(tokens[0] + " First ID");
+				// Need to add to ID B list in NRP
 				System.out.println(tokens[1] + " Second ID");
 				words = 0;
 			}
 			// Now for number of customers
 			if (words == 1) {
 				System.out.println("number of customers is: " + currentLine);
+				// Add customer numbers to nrp object attribute
+				nrp.setNumCustomers(Integer.parseInt(currentLine));
 			}
 			// profit customer, num requests, req list
 			while (words > 2) {
+				/** 
+				 * Need to split into three 
+				 * profit: single variable
+				 * Num requests: single variable 
+				 * Req list: a list.. ofc
+				 */
 				System.out.println(currentLine);
 				words = 0;
 			}
 		}
 		br.close();
+		System.out.println(nrp.getReqLevel() + " in the object yoooo");
+		System.out.println(nrp.getNumCustomers() + " is num customers in object");
 	}
-
-	/**
-	 * Level of requirments will always be position 1 which will give back a
-	 * value i, which you can use to go through num and cost requirements i
-	 * times i.e. if level of requirments, from position 1, is 3 you know to
-	 * increment three times to get the num and cost for the three levels after
-	 * this.
-	 */
 
 }

@@ -9,6 +9,7 @@ public class Customer {
 
 	/**
 	 * Individual Customers
+	 * 
 	 * @param profit
 	 * @param requests
 	 * @param reqList
