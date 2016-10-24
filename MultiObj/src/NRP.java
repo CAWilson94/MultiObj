@@ -1,17 +1,22 @@
 /**
  * NRP instance to be generated
  * 
+ * The predefined budget bound is calculated as the cost ratio multiplied the
+ * sum of all the requirements costs.
+ * 
+ * i.e. int preDefBudget = Constants.COST_RATIO * sum(reqCost)
+ * 
  * @author Charlotte Wilson
  *
  */
 public class NRP {
-	
+
 	private int reqLevel = 0;
 	private int numReq = 0;
 	private int reqCost = 0;
-	
-	public NRP(int reqLevel, int numReq, int reqCost){
-		
+
+	public NRP(int reqLevel, int numReq, int reqCost) {
+
 	}
 
 	public int getReqLevel() {
