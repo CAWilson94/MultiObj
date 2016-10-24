@@ -53,6 +53,13 @@ public class FileParser {
 			if (words == 1) {
 				System.out.println("number of customers is: " + currentLine);
 			}
+
+			// profit customer, num requests, req list
+			while (words > 2) {
+				System.out.println(currentLine);
+				words = 0;
+			}
+
 		}
 		br.close();
 	}
