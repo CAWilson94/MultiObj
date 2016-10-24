@@ -15,8 +15,9 @@ public class NRP {
 	private int numReq = 0;
 	private int reqCost = 0;
 	private int dependancies = 0;
+	private int numCustomers = 0;
 
-	public NRP(int reqLevel, int numReq, int reqCost, int dependancies) {
+	public NRP(int reqLevel, int numReq, int reqCost, int dependancies, int numCustomers) {
 
 	}
 
@@ -50,6 +51,14 @@ public class NRP {
 
 	public void setDependancies(int dependancies) {
 		this.dependancies = dependancies;
+	}
+
+	public int getNumCustomers() {
+		return numCustomers;
+	}
+
+	public void setNumCustomers(int numCustomers) {
+		this.numCustomers = numCustomers;
 	}
 
 }

@@ -16,9 +16,10 @@ import java.io.IOException;
 public class FileParser {
 
 	/**
-	 * May need to put each different object into different methods 
-	 * Still need to add every parsed bit into customer objects and such
-	 * and also link the correct attributes to each other
+	 * May need to put each different object into different methods Still need
+	 * to add every parsed bit into customer objects and such and also link the
+	 * correct attributes to each other
+	 * 
 	 * @param args
 	 * @throws IOException
 	 */
