@@ -30,12 +30,22 @@ public class FileParser {
 
 		while ((currentLine = br.readLine()) != null) {
 			counter++; // Skips line 0
+			if (counter == 1) {
+				System.out.println(currentLine + "Level of requirments");
+			}
 			if (counter == 2) {
-				System.out.println(currentLine + " This should be saved in the nrp object");
+				System.out.println(currentLine + "Num requirements in level one");
+				int countMini = currentLine; // need to convert to int then loop through and save
 			}
 		}
 		br.close();
-
 	}
+
+	/**
+	 * Level of requirments will always be position 1 which will give back a
+	 * value i, which you can use to go through num and cost requirements i times
+	 * i.e. if level of requirments, from position 1, is 3 you know to increment
+	 * three times to get the num and cost for the three levels after this.
+	 */
 
 }
