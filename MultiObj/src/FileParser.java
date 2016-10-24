@@ -46,6 +46,9 @@ public class FileParser {
 			words += currentLine.split("\\s+").length;
 			while (words == 2) {
 				System.out.println(currentLine);
+				String[] tokens = currentLine.split("\\s+");
+				System.out.println(tokens[0] + " First ID");
+				System.out.println(tokens[1] + " Second ID");
 				words = 0;
 			}
 		}
