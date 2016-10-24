@@ -31,11 +31,22 @@ public class FileParser {
 		while ((currentLine = br.readLine()) != null) {
 			counter++; // Skips line 0
 			if (counter == 1) {
-				System.out.println(currentLine + "Level of requirments");
+				System.out.println(currentLine + " Num requirements");
+				int countMini = Integer.parseInt(currentLine) * 2;
+				while (countMini != 0) {
+					counter++;
+					System.out.println(br.readLine());
+					countMini--;
+				}
+				System.out.println("counter is now at.. " + counter);
+				System.out.println("should be num dependancies.. " + br.readLine());
 			}
-			if (counter == 2) {
-				System.out.println(currentLine + "Num requirements in level one");
-				int countMini = currentLine; // need to convert to int then loop through and save
+
+			int words = 0;
+			words += currentLine.split("\\s+").length;
+			while (words == 2) {
+				System.out.println(currentLine);
+				words = 0;
 			}
 		}
 		br.close();
@@ -43,9 +54,10 @@ public class FileParser {
 
 	/**
 	 * Level of requirments will always be position 1 which will give back a
-	 * value i, which you can use to go through num and cost requirements i times
-	 * i.e. if level of requirments, from position 1, is 3 you know to increment
-	 * three times to get the num and cost for the three levels after this.
+	 * value i, which you can use to go through num and cost requirements i
+	 * times i.e. if level of requirments, from position 1, is 3 you know to
+	 * increment three times to get the num and cost for the three levels after
+	 * this.
 	 */
 
 }
