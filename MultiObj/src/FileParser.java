@@ -16,32 +16,30 @@ import java.io.IOException;
 public class FileParser {
 
 	public static void main(String[] args) throws IOException {
-		/*
-		 * Basically, to read in the level of requirments you just read in the
-		 * first line and store that number
-		 */
 
-		int numReq = 0; // Need this!
 		BufferedReader br = null;
 		String currentLine;
 		int counter = 0;
-
+		// Basic reader
 		br = new BufferedReader(new FileReader(Constants.FILE_NAME));
 
 		while ((currentLine = br.readLine()) != null) {
+
 			counter++; // Skips line 0
+			// Check out the level of requirements
 			if (counter == 1) {
 				System.out.println(currentLine + " Num requirements");
-				int countMini = Integer.parseInt(currentLine) * 2;
-				while (countMini != 0) {
-					counter++;
+				int reqCounter = Integer.parseInt(currentLine) * 2;
+				// go through cost and level for each requirement
+				while (reqCounter != 0) {
+					counter++; // original counter
 					System.out.println(br.readLine());
-					countMini--;
+					reqCounter--; // requirements counter
 				}
 				System.out.println("counter is now at.. " + counter);
 				System.out.println("should be num dependancies.. " + br.readLine());
 			}
-
+			// Go through all the ID's
 			int words = 0;
 			words += currentLine.split("\\s+").length;
 			while (words == 2) {
@@ -50,6 +48,10 @@ public class FileParser {
 				System.out.println(tokens[0] + " First ID");
 				System.out.println(tokens[1] + " Second ID");
 				words = 0;
+			}
+			// Now for number of customers
+			if (words == 1) {
+				System.out.println("number of customers is: " + currentLine);
 			}
 		}
 		br.close();
