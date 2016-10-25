@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * Parsing in data files
@@ -78,13 +79,18 @@ public class FileParser {
 			}
 			// profit customer, num requests, req list
 			while (words > 2) {
-				/** 
-				 * Need to split into three 
-				 * profit: single variable
-				 * Num requests: single variable 
-				 * Req list: a list.. ofc
+				/**
+				 * Need to split into three profit: single variable Num
+				 * requests: single variable Req list: a list.. ofc
 				 */
-				System.out.println(currentLine);
+				String[] tokens = currentLine.split("\\s+");
+				System.out.print(" profit: " + tokens[0]);
+				System.out.print(" num requests: " + tokens[1]);
+
+				String[] subTokens = Arrays.copyOfRange(tokens, 2, tokens.length);
+				System.out.println(" Request List: " + java.util.Arrays.toString(subTokens));
+
+				System.out.println("\n");
 				words = 0;
 			}
 		}
