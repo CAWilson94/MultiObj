@@ -91,12 +91,6 @@ public class FileParser {
 				nrp.setIDReqA(IDReqA);
 				nrp.setIDReqB(IDReqB);
 
-				// Now for number of customers
-				if (words == 1) {
-					System.out.println("number of customers is: " + currentLine);
-					// Add customer numbers to nrp object attribute
-					nrp.setNumCustomers(Integer.parseInt(currentLine));
-				}
 				// profit customer, num requests, req list
 				while (words > 2) {
 					customerCount++;
@@ -125,7 +119,13 @@ public class FileParser {
 					words = 0;
 				}
 				nrp.setCustomers(customersList);
+
 			}
+
+			System.out.println("number of customers is: " + customerCount);
+			// Add customer numbers to nrp object attribute
+			nrp.setNumCustomers(customerCount);
+
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -190,6 +190,8 @@ public class FileParser {
 	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
+		FileParser fp = new FileParser();
+		fp.parseFile();
 
 	}
 
