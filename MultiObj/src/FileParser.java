@@ -16,42 +16,14 @@ import java.util.List;
  *         1: Read in Req Level 2: Num and cost requirements in each level 3:
  *
  */
-public final class FileParser {
+public class FileParser {
+
+	NRP nrp = new NRP();
 
 	/**
 	 * Parsing the file into something more useful
 	 */
-	public static void parseFile() {
-
-	}
-
-	/**
-	 * Extracting ID's from column A and column B and storing them in NRP object
-	 */
-	public static void IDExtraction() {
-
-	}
-
-	/**
-	 * Extracting different customer attributes, saving each customer and adding
-	 * customer list to NRP object
-	 */
-	public static void customerAttributeExtraction() {
-
-	}
-	
-
-	/**
-	 * May need to put each different object into different methods Still need
-	 * to add every parsed bit into customer objects and such and also link the
-	 * correct attributes to each other
-	 * 
-	 * @param args
-	 * @throws IOException
-	 */
-	public static void main(String[] args) throws IOException {
-
-		NRP nrp = new NRP();
+	public void parseFile() {
 
 		BufferedReader br = null;
 		String currentLine;
@@ -61,87 +33,131 @@ public final class FileParser {
 		List<Integer> IDReqA = new ArrayList<Integer>();
 		List<Integer> IDReqB = new ArrayList<Integer>();
 		// Basic reader
-		br = new BufferedReader(new FileReader(Constants.FILE_NAME));
-
-		while ((currentLine = br.readLine()) != null) {
-
-			counter++; // Skips line 0
-			// Check out the level of requirements
-			if (counter == 1) {
-				System.out.println(currentLine + " Num requirements");
-				nrp.setReqLevel(Integer.parseInt(currentLine));
-				int reqCounter = Integer.parseInt(currentLine) * 2;
-				// go through cost and level for each requirement
-				while (reqCounter != 0) {
-
-					/**
-					 * if words > 1: count how many there are and that is equal
-					 * to cost - Add this to cost of requirement
-					 * 
-					 * Else, one word is the number of requirements
-					 */
-
-					counter++; // original counter
-					System.out.println(br.readLine());
-					reqCounter--; // requirements counter
-				}
-				System.out.println("counter is now at.. " + counter);
-				System.out.println("should be num dependancies.. " + br.readLine());
-			}
-			// Go through all the ID's
-			int words = 0;
-			words += currentLine.split("\\s+").length;
-			while (words == 2) {
-				System.out.println(currentLine);
-				String[] tokens = currentLine.split("\\s+");
-				// Need to add to ID A list in NRP
-				System.out.println(tokens[0] + " First ID");
-				IDReqA.add(Integer.parseInt(tokens[0]));
-				// Need to add to ID B list in NRP
-				System.out.println(tokens[1] + " Second ID");
-				IDReqB.add(Integer.parseInt(tokens[1]));
-				words = 0;
-			}
-
-			nrp.setIDReqA(IDReqA);
-			nrp.setIDReqB(IDReqB);
-
-			// Now for number of customers
-			if (words == 1) {
-				System.out.println("number of customers is: " + currentLine);
-				// Add customer numbers to nrp object attribute
-				nrp.setNumCustomers(Integer.parseInt(currentLine));
-			}
-			// profit customer, num requests, req list
-			while (words > 2) {
-				customerCount++;
-				System.out.println(customerCount + "customer count");
-				// Just to keep track of the right things..
-				Customer customer = new Customer();
-				customer.setCustomerLabel(customerCount);
-
-				// Split line into different attributes
-				String[] tokens = currentLine.split("\\s+");
-
-				System.out.print(" profit: " + tokens[0]);
-				customer.setProfit(Integer.parseInt(tokens[0]));
-				System.out.print(" num requests: " + tokens[1]);
-				customer.setNumRequests(Integer.parseInt(tokens[1]));
-
-				String[] subTokens = Arrays.copyOfRange(tokens, 2, tokens.length);
-				System.out.println(" Request List: " + java.util.Arrays.toString(subTokens));
-				List<Integer> reqList = new ArrayList<Integer>();
-				for (String s : subTokens) {
-					reqList.add(Integer.parseInt(s));
-				}
-				customer.setReqList(reqList);
-				System.out.println("\n");
-				customersList.add(customer);
-				words = 0;
-			}
-			nrp.setCustomers(customersList);
+		try {
+			br = new BufferedReader(new FileReader(Constants.FILE_NAME));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		}
-		br.close();
+
+		try {
+			while ((currentLine = br.readLine()) != null) {
+
+				counter++; // Skips line 0
+				// Check out the level of requirements
+				if (counter == 1) {
+					System.out.println(currentLine + " Num requirements");
+					nrp.setReqLevel(Integer.parseInt(currentLine));
+					int reqCounter = Integer.parseInt(currentLine) * 2;
+					// go through cost and level for each requirement
+					while (reqCounter != 0) {
+
+						/**
+						 * if words > 1: count how many there are and that is
+						 * equal to cost - Add this to cost of requirement
+						 * 
+						 * Else, one word is the number of requirements
+						 */
+
+						counter++; // original counter
+						try {
+							System.out.println(br.readLine());
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						reqCounter--; // requirements counter
+					}
+					System.out.println("counter is now at.. " + counter);
+					try {
+						System.out.println("should be num dependancies.. " + br.readLine());
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+				// Go through all the ID's
+				int words = 0;
+				words += currentLine.split("\\s+").length;
+				while (words == 2) {
+					System.out.println(currentLine);
+					String[] tokens = currentLine.split("\\s+");
+					// Need to add to ID A list in NRP
+					System.out.println(tokens[0] + " First ID");
+					IDReqA.add(Integer.parseInt(tokens[0]));
+					// Need to add to ID B list in NRP
+					System.out.println(tokens[1] + " Second ID");
+					IDReqB.add(Integer.parseInt(tokens[1]));
+					words = 0;
+				}
+
+				nrp.setIDReqA(IDReqA);
+				nrp.setIDReqB(IDReqB);
+
+				// Now for number of customers
+				if (words == 1) {
+					System.out.println("number of customers is: " + currentLine);
+					// Add customer numbers to nrp object attribute
+					nrp.setNumCustomers(Integer.parseInt(currentLine));
+				}
+				// profit customer, num requests, req list
+				while (words > 2) {
+					customerCount++;
+					System.out.println(customerCount + "customer count");
+					// Just to keep track of the right things..
+					Customer customer = new Customer();
+					customer.setCustomerLabel(customerCount);
+
+					// Split line into different attributes
+					String[] tokens = currentLine.split("\\s+");
+
+					System.out.print(" profit: " + tokens[0]);
+					customer.setProfit(Integer.parseInt(tokens[0]));
+					System.out.print(" num requests: " + tokens[1]);
+					customer.setNumRequests(Integer.parseInt(tokens[1]));
+
+					String[] subTokens = Arrays.copyOfRange(tokens, 2, tokens.length);
+					System.out.println(" Request List: " + java.util.Arrays.toString(subTokens));
+					List<Integer> reqList = new ArrayList<Integer>();
+					for (String s : subTokens) {
+						reqList.add(Integer.parseInt(s));
+					}
+					customer.setReqList(reqList);
+					System.out.println("\n");
+					customersList.add(customer);
+					words = 0;
+				}
+				nrp.setCustomers(customersList);
+			}
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			br.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	/**
+	 * Extracting ID's from column A and column B and storing them in NRP object
+	 */
+	private void IDExtraction() {
+
+	}
+
+	/**
+	 * Extracting different customer attributes, saving each customer and adding
+	 * customer list to NRP object
+	 */
+	private void customerAttributeExtraction() {
+
+	}
+
+	/**
+	 * Just some debugging ... nothing to see here
+	 */
+	private void debug() {
 
 		// Testing all the things
 		if (Constants.DEBUG == true) {
@@ -163,6 +179,18 @@ public final class FileParser {
 				System.out.println(s);
 			}
 		}
+	}
+
+	/**
+	 * May need to put each different object into different methods Still need
+	 * to add every parsed bit into customer objects and such and also link the
+	 * correct attributes to each other
+	 * 
+	 * @param args
+	 * @throws IOException
+	 */
+	public static void main(String[] args) throws IOException {
+
 	}
 
 }
