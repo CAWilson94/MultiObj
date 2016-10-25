@@ -23,6 +23,7 @@ public class NRP {
 	private List<Integer> IDReqA = new ArrayList<Integer>();
 	// Requirements list for B column
 	private List<Integer> IDReqB = new ArrayList<Integer>();
+	private List<Customer> customers = new ArrayList<Customer>();
 
 	/**
 	 * Basically I am lazy and would like the option to make this in any
@@ -170,6 +171,14 @@ public class NRP {
 	 */
 	public void setIDReqB(List<Integer> iDReqB) {
 		IDReqB = iDReqB;
+	}
+
+	public List<Customer> getCustomers() {
+		return customers;
+	}
+
+	public void setCustomers(List<Customer> customers) {
+		this.customers = customers;
 	}
 
 }

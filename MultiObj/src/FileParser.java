@@ -2,7 +2,9 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Parsing in data files
@@ -31,6 +33,8 @@ public class FileParser {
 		BufferedReader br = null;
 		String currentLine;
 		int counter = 0;
+		int customerCount = 0;
+		List<Customer> customersList = new ArrayList<Customer>();
 		// Basic reader
 		br = new BufferedReader(new FileReader(Constants.FILE_NAME));
 
@@ -79,24 +83,44 @@ public class FileParser {
 			}
 			// profit customer, num requests, req list
 			while (words > 2) {
+				customerCount++;
+				System.out.println(customerCount + "customer count");
+				// Just to keep track of the right things..
+				Customer customer = new Customer();
+				customer.setCustomerLabel(customerCount);
 				/**
 				 * Need to split into three profit: single variable Num
 				 * requests: single variable Req list: a list.. ofc
 				 */
 				String[] tokens = currentLine.split("\\s+");
+
 				System.out.print(" profit: " + tokens[0]);
+				customer.setProfit(Integer.parseInt(tokens[0]));
 				System.out.print(" num requests: " + tokens[1]);
+				customer.setNumRequests(Integer.parseInt(tokens[1]));
 
 				String[] subTokens = Arrays.copyOfRange(tokens, 2, tokens.length);
 				System.out.println(" Request List: " + java.util.Arrays.toString(subTokens));
-
+				List<Integer> reqList = new ArrayList<Integer>();
+				for (String s : subTokens) {
+					reqList.add(Integer.parseInt(s));
+				}
+				customer.setReqList(reqList);
 				System.out.println("\n");
+				customersList.add(customer);
 				words = 0;
 			}
 		}
 		br.close();
 		System.out.println(nrp.getReqLevel() + " in the object yoooo");
 		System.out.println(nrp.getNumCustomers() + " is num customers in object");
+
+		System.out.println("customers list: ");
+		for (Customer c : customersList) {
+			System.out.print("customer Label: " + c.getCustomerLabel() + "  profit: " + c.getProfit() + " num req: "
+					+ c.getNumRequests());
+			System.out.println(" req list: " + c.getReqList());
+		}
 	}
 
 }
