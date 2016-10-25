@@ -16,7 +16,30 @@ import java.util.List;
  *         1: Read in Req Level 2: Num and cost requirements in each level 3:
  *
  */
-public class FileParser {
+public final class FileParser {
+
+	/**
+	 * Parsing the file into something more useful
+	 */
+	public static void parseFile() {
+
+	}
+
+	/**
+	 * Extracting ID's from column A and column B and storing them in NRP object
+	 */
+	public static void IDExtraction() {
+
+	}
+
+	/**
+	 * Extracting different customer attributes, saving each customer and adding
+	 * customer list to NRP object
+	 */
+	public static void customerAttributeExtraction() {
+
+	}
+	
 
 	/**
 	 * May need to put each different object into different methods Still need
@@ -120,7 +143,7 @@ public class FileParser {
 		}
 		br.close();
 
-		// Testing all shiz
+		// Testing all the things
 		if (Constants.DEBUG == true) {
 			System.out.println(nrp.getReqLevel() + " in the object yoooo");
 			System.out.println(nrp.getNumCustomers() + " is num customers in object");
@@ -131,13 +154,11 @@ public class FileParser {
 			}
 
 			System.out.println("Requirements A list");
-
 			for (Integer s : nrp.getIDReqA()) {
 				System.out.println(s);
 			}
 
 			System.out.println("Requirements B list");
-
 			for (Integer s : nrp.getIDReqB()) {
 				System.out.println(s);
 			}
