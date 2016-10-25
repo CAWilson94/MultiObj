@@ -35,6 +35,8 @@ public class FileParser {
 		int counter = 0;
 		int customerCount = 0;
 		List<Customer> customersList = new ArrayList<Customer>();
+		List<Integer> IDReqA = new ArrayList<Integer>();
+		List<Integer> IDReqB = new ArrayList<Integer>();
 		// Basic reader
 		br = new BufferedReader(new FileReader(Constants.FILE_NAME));
 
@@ -71,10 +73,16 @@ public class FileParser {
 				String[] tokens = currentLine.split("\\s+");
 				// Need to add to ID A list in NRP
 				System.out.println(tokens[0] + " First ID");
+				IDReqA.add(Integer.parseInt(tokens[0]));
 				// Need to add to ID B list in NRP
 				System.out.println(tokens[1] + " Second ID");
+				IDReqB.add(Integer.parseInt(tokens[1]));
 				words = 0;
 			}
+
+			nrp.setIDReqA(IDReqA);
+			nrp.setIDReqB(IDReqB);
+
 			// Now for number of customers
 			if (words == 1) {
 				System.out.println("number of customers is: " + currentLine);
@@ -88,10 +96,8 @@ public class FileParser {
 				// Just to keep track of the right things..
 				Customer customer = new Customer();
 				customer.setCustomerLabel(customerCount);
-				/**
-				 * Need to split into three profit: single variable Num
-				 * requests: single variable Req list: a list.. ofc
-				 */
+
+				// Split line into different attributes
 				String[] tokens = currentLine.split("\\s+");
 
 				System.out.print(" profit: " + tokens[0]);
@@ -113,12 +119,28 @@ public class FileParser {
 			nrp.setCustomers(customersList);
 		}
 		br.close();
-		System.out.println(nrp.getReqLevel() + " in the object yoooo");
-		System.out.println(nrp.getNumCustomers() + " is num customers in object");
 
-		System.out.println("customers list: ");
-		for (Customer c : nrp.getCustomers()) {
-			System.out.println(c.getCustomerLabel());
+		// Testing all shiz
+		if (Constants.DEBUG == true) {
+			System.out.println(nrp.getReqLevel() + " in the object yoooo");
+			System.out.println(nrp.getNumCustomers() + " is num customers in object");
+
+			System.out.println("customers list: ");
+			for (Customer c : nrp.getCustomers()) {
+				System.out.println(c.getCustomerLabel());
+			}
+
+			System.out.println("Requirements A list");
+
+			for (Integer s : nrp.getIDReqA()) {
+				System.out.println(s);
+			}
+
+			System.out.println("Requirements B list");
+
+			for (Integer s : nrp.getIDReqB()) {
+				System.out.println(s);
+			}
 		}
 	}
 
