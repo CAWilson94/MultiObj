@@ -110,16 +110,15 @@ public class FileParser {
 				customersList.add(customer);
 				words = 0;
 			}
+			nrp.setCustomers(customersList);
 		}
 		br.close();
 		System.out.println(nrp.getReqLevel() + " in the object yoooo");
 		System.out.println(nrp.getNumCustomers() + " is num customers in object");
 
 		System.out.println("customers list: ");
-		for (Customer c : customersList) {
-			System.out.print("customer Label: " + c.getCustomerLabel() + "  profit: " + c.getProfit() + " num req: "
-					+ c.getNumRequests());
-			System.out.println(" req list: " + c.getReqList());
+		for (Customer c : nrp.getCustomers()) {
+			System.out.println(c.getCustomerLabel());
 		}
 	}
 
