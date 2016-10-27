@@ -109,7 +109,6 @@ public class FileParser {
 		}
 		customer.setReqList(reqList);
 		customersList.add(customer);
-
 	}
 
 	/**
