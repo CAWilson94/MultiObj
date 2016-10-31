@@ -9,23 +9,15 @@
  */
 public class Creator {
 
-	NRP nrp = new NRP();
+	private int popSize;
+
+	public Creator(int popSize) {
+		this.popSize = popSize;
+	}
 
 	/**
-	 * Will need to call the parse file before making an nrp object?
-	 * 
-	 * @param nrp
+	 * Want a list of customers?
 	 */
-	public Creator(NRP nrp) {
-		this.nrp = nrp;
-	}
-
-	public void createIndi() {
-
-	}
 	
-	public void createChromo(){
-		
-	}
-
+	
 }

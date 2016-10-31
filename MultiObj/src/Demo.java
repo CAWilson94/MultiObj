@@ -7,5 +7,11 @@ public class Demo {
 		// Evaluate fitness
 		FileParser fp = new FileParser();
 		fp.parseFile();
+
+		NRP nrp = fp.parseFile();
+
+		for (Customer c : nrp.getCustomers()) {
+			System.out.println(c.getReqList());
+		}
 	}
 }

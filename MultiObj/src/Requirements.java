@@ -2,6 +2,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Requirements {
+	
+	/**
+	 * Ignore level and dependencies for requirements
+	 */
 
 	private int numReq = 0;
 	private List<String> costs = new ArrayList<String>();
@@ -9,6 +13,7 @@ public class Requirements {
 
 	/**
 	 * To aid my laziness
+	 * 
 	 */
 	public Requirements() {
 

@@ -25,8 +25,10 @@ public class FileParser {
 
 	/**
 	 * Parsing the file into something more useful
+	 * 
+	 * @return
 	 */
-	public void parseFile() {
+	public NRP parseFile() {
 
 		BufferedReader br = null;
 		String currentLine;
@@ -90,6 +92,8 @@ public class FileParser {
 			e.printStackTrace();
 		}
 		debug(); // Make sure everything has went into the correct objects
+
+		return nrp;
 	}
 
 	/**
