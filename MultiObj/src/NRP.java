@@ -24,7 +24,7 @@ public class NRP {
 	// Requirements list for B column
 	private List<Integer> IDReqB = new ArrayList<Integer>();
 	private List<Customer> customers = new ArrayList<Customer>();
-	private int[][] level = null;
+	private List<Requirements> requirements = new ArrayList<Requirements>();
 
 	/**
 	 * Basically I am lazy and would like the option to make this in any
@@ -182,23 +182,12 @@ public class NRP {
 		this.customers = customers;
 	}
 
-	public int[][] getLevel() {
-		return level;
+	public List<Requirements> getRequirements() {
+		return requirements;
 	}
 
-	/**
-	 * Setting the attributes for each requirement level 
-	 * i.e. cost and number of requirements per level
-	 * @param level
-	 * @param currentValue
-	 */
-	public void setLevel(int[][] level, int currentValue) {
-		for (int i = 0; i < level.length; i++) {
-			for (int j = 0; j < level[i].length; j++) {
-				level[i][j] = currentValue;
-			}
-		}
-		this.level = level;
+	public void setRequirements(List<Requirements> level) {
+		this.requirements = level;
 	}
 
 }

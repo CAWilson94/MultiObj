@@ -1,5 +1,4 @@
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,6 +21,7 @@ public class FileParser {
 	public List<Customer> customersList = new ArrayList<Customer>();
 	public List<Integer> IDReqA = new ArrayList<Integer>();
 	public List<Integer> IDReqB = new ArrayList<Integer>();
+	public List<Requirements> level = new ArrayList<Requirements>();
 
 	/**
 	 * Parsing the file into something more useful
@@ -41,10 +41,24 @@ public class FileParser {
 					nrp.setReqLevel(Integer.parseInt(currentLine));
 					int reqCounter = Integer.parseInt(currentLine) * 2;
 					// go through cost and level for each requirement
+					int countBoop = 1;
 					while (reqCounter != 0) {
-						System.out.println(br.readLine() + "boop");
+						currentLine = br.readLine();
+						String[] tokens = currentLine.split("\\s+");
+						List<String> tokensList = new ArrayList<String>(Arrays.asList(tokens));
+						if (tokens.length > 1) {
+							// save as whatever
+							System.out.println(currentLine + " is current line");
+							System.out.println(tokensList.size() + " is size");
+							Requirements r = new Requirements(tokensList.size(), tokensList, countBoop);
+							level.add(r);
+							countBoop++; // Just to add level to Requirements
+											// object
+						}
 						reqCounter--;
+
 					}
+					nrp.setRequirements(level);
 					System.out.println("should be num dependancies.. " + br.readLine());
 				}
 
@@ -138,8 +152,27 @@ public class FileParser {
 				System.out.println(s);
 			}
 
-		}
+			System.out.println("requirements shit: ");
+			for (Requirements n : nrp.getRequirements()) {
+				System.out.println(n.getNumReq() + " : numReq ");
+				System.out.println(n.getCosts() + " : Costs ");
+				System.out.println(n.getLevel() + " : is level ");
+			}
 
+		}
+	}
+
+	/**
+	 * Tokenise lines and get total number of numbers in there this is for the
+	 * total cost of the level, can be used for other things..
+	 * 
+	 * @param currentLine
+	 * @return
+	 */
+	public int tokenizeShit(String currentLine) {
+		String[] tokens = currentLine.split("\\s+");
+		int total = tokens.length;
+		return total;
 	}
 
 	/**
@@ -153,7 +186,5 @@ public class FileParser {
 	public static void main(String[] args) throws IOException {
 		FileParser fp = new FileParser();
 		fp.parseFile();
-
 	}
-
 }
