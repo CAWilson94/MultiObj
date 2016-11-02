@@ -24,6 +24,27 @@ public class DemoShiz {
 
 	}
 
+	public void scoreShit(String phenotype, NRP nrp) {
+
+		int score = 0;
+		int weight = 0;
+		int profit = 0;
+
+		for (int k = 0; k < nrp.getCustomers().size(); k++) {
+			int j = 0;
+			for (int i = 0; i < nrp.getCustomers().get(k).getReqList().size(); i++) {
+				if (phenotype.charAt(j) == '1') {
+					weight = j;
+					profit = nrp.getCustomers().get(k).getProfit();
+					score = weight * profit;
+					System.out.println("score is: " + score);
+
+				}
+				j++;
+			}
+		}
+	}
+
 	public static void main(String[] args) {
 		FileParser fp = new FileParser();
 		NRP nrp = fp.parseFile();
@@ -55,6 +76,9 @@ public class DemoShiz {
 		System.out.println("score testing");
 
 		d1.score(booping);
+
+		System.out.println("score shit now");
+		d1.scoreShit(booping, nrp);
 
 	}
 
