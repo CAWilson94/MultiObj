@@ -22,6 +22,7 @@ public class FileParser {
 	public List<Integer> IDReqA = new ArrayList<Integer>();
 	public List<Integer> IDReqB = new ArrayList<Integer>();
 	public List<Requirements> level = new ArrayList<Requirements>();
+	public List<Integer> allCosts = new ArrayList<Integer>();
 
 	/**
 	 * Parsing the file into something more useful
@@ -54,8 +55,8 @@ public class FileParser {
 							System.out.println(tokensList.size() + " is size");
 							Requirements r = new Requirements(tokensList.size(), tokensList, countBoop);
 							level.add(r);
-							countBoop++; // Just to add level to Requirements
-											// object
+							addtoTotalCost(tokensList);
+							countBoop++;
 						}
 						reqCounter--;
 
@@ -94,6 +95,13 @@ public class FileParser {
 		debug(); // Make sure everything has went into the correct objects
 
 		return nrp;
+	}
+
+	private void addtoTotalCost(List<String> annoyingList) {
+		for (String n : annoyingList) {
+			int nm = Integer.parseInt(n);
+			allCosts.add(nm);
+		}
 	}
 
 	/**
@@ -161,6 +169,11 @@ public class FileParser {
 				System.out.println(n.getNumReq() + " : numReq ");
 				System.out.println(n.getCosts() + " : Costs ");
 				System.out.println(n.getLevel() + " : is level ");
+			}
+
+			System.out.println("aw the costs");
+			for (Integer n : allCosts) {
+				System.out.println(n);
 			}
 
 		}

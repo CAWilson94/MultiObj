@@ -25,6 +25,7 @@ public class NRP {
 	private List<Integer> IDReqB = new ArrayList<Integer>();
 	private List<Customer> customers = new ArrayList<Customer>();
 	private List<Requirements> requirements = new ArrayList<Requirements>();
+	private List<Integer> allCosts = new ArrayList<Integer>();
 
 	/**
 	 * Basically I am lazy and would like the option to make this in any
