@@ -1,5 +1,4 @@
 
-
 import org.opt4j.core.problem.Evaluator;
 import org.opt4j.core.Objective.Sign;
 import org.opt4j.core.Objectives;

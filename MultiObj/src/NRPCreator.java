@@ -20,9 +20,4 @@ public class NRPCreator implements Creator<BooleanGenotype> {
 		genotype.init(random, 1000); //
 		return genotype;
 	}
-
-	public static void main(String[] args) {
-		TestMinCreator tmc = new TestMinCreator();
-		System.out.println(tmc.create());
-	}
 }
