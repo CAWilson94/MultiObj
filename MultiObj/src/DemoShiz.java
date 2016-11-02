@@ -1,16 +1,19 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.opt4j.core.genotype.BooleanGenotype;
 
 public class DemoShiz {
 
-	public void score() {
+	public List<Integer> ints = new ArrayList<Integer>();
 
-		/**
-		 * Set of weights for each customer
-		 * 
-		 */
-
+	public void score(String phenotype) {
+		for (int i = 0; i < phenotype.length(); i++) {
+			if (phenotype.charAt(i) == '0') {
+				System.out.println("nawwwwwwwwwwwwww");
+			}
+		}
 	}
 
 	public void getWeightCustom(List<Customer> customers) {
@@ -48,8 +51,11 @@ public class DemoShiz {
 		DemoShiz d1 = new DemoShiz();
 
 		d1.getWeightCustom(nrp.getCustomers());
-		
-		}
-		
+
+		System.out.println("score testing");
+
+		d1.score(booping);
+
 	}
 
+}
