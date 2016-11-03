@@ -62,26 +62,47 @@ public class DemoShiz {
 		List<Customer> dupReqs = new ArrayList<Customer>();
 		for (int i = 0; i < phenotype.length(); i++) {
 			if (phenotype.charAt(i) == '1') {
-				huntforReq(i, nrp);
+				huntforReqScore(i, nrp);
 			}
 		}
 	}
 
-	private Customer huntforReq(int position, NRP nrp) {
+	/**
+	 * Hunts for all scores from all customers for one requirement
+	 * 
+	 * @param position
+	 * @param nrp
+	 * @return List<Integer> current batch of scores from that requirement
+	 */
+	private List<Integer> huntforReqScore(int position, NRP nrp) {
 		List<Customer> customerList = nrp.getCustomers();
 		int i = 0;
+		int score = 0;
+		List<Integer> scoresCurrent = new ArrayList<Integer>();
 		for (Customer n : customerList) {
 			if (n.getReqList().contains(position)) {
-				System.out.println("found a requirement: " + i + " weight of customer is: " + n.getProfit()
-						+ "with weight: " + getDatWeight(position, n.getReqList()));
+				if (Constants.DEBUG == true) {
+					System.out.println("found a requirement: " + i + " weight of customer is: " + n.getProfit()
+							+ "with value of req: " + customerValueOnReq(position, n.getReqList()));
+				}
+				// TODO: check this is right.
+				score = n.getProfit() * customerValueOnReq(position, n.getReqList());
+				scoresCurrent.add(score);
 			}
-			// Store all into a temp array to work on after?
 			i++;
 		}
-		return null;
+		return scoresCurrent;
 	}
 
-	private int getDatWeight(int requirement, List<Integer> reqList) {
+	/**
+	 * Gets the customer value placed on a requirement
+	 * 
+	 * @param requirement
+	 * @param reqList
+	 * @return
+	 */
+	private int customerValueOnReq(int requirement, List<Integer> reqList) {
+		// TODO: write a version of this that works for the realistic data set
 		int weight = 0;
 		int reqPos = reqList.indexOf(requirement);
 		int[] weights = { 100, 75, 50, 25 };
@@ -116,7 +137,7 @@ public class DemoShiz {
 		DemoShiz d1 = new DemoShiz();
 
 		System.out.println("requirement hunting\n");
-		d1.huntforReq(104, nrp);
+		d1.huntforReqScore(104, nrp);
 	}
 
 }
