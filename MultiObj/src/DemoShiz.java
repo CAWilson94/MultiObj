@@ -59,7 +59,6 @@ public class DemoShiz {
 	}
 
 	public void halp(String phenotype, NRP nrp) {
-		List<Customer> dupReqs = new ArrayList<Customer>();
 		for (int i = 0; i < phenotype.length(); i++) {
 			if (phenotype.charAt(i) == '1') {
 				huntforReqScore(i, nrp);
@@ -81,10 +80,10 @@ public class DemoShiz {
 		List<Integer> scoresCurrent = new ArrayList<Integer>();
 		for (Customer n : customerList) {
 			if (n.getReqList().contains(position)) {
-				if (Constants.DEBUG == true) {
-					System.out.println("found a requirement: " + i + " weight of customer is: " + n.getProfit()
-							+ "with value of req: " + customerValueOnReq(position, n.getReqList()));
-				}
+				// if (Constants.DEBUG == true) {
+				System.out.println("found a requirement: " + i + " weight of customer is: " + n.getProfit()
+						+ "with value of req: " + customerValueOnReq(position, n.getReqList()));
+				// }
 				// TODO: check this is right.
 				score = n.getProfit() * customerValueOnReq(position, n.getReqList());
 				scoresCurrent.add(score);
@@ -104,9 +103,13 @@ public class DemoShiz {
 	private int customerValueOnReq(int requirement, List<Integer> reqList) {
 		// TODO: write a version of this that works for the realistic data set
 		int weight = 0;
+		int fraction = reqList.size() + 1;
 		int reqPos = reqList.indexOf(requirement);
-		int[] weights = { 100, 75, 50, 25 };
-		weight = weights[reqPos];
+		System.out.println(reqPos);
+		for (int n : reqList) {
+			System.out.println(n);
+		}
+		weight = 100 - reqPos * fraction;
 		return weight;
 	}
 
@@ -122,22 +125,20 @@ public class DemoShiz {
 		System.out.println(booping);
 		char[] yermaw = booping.toCharArray();
 
+		System.out.println("test requirements list:");
 		for (Customer n : nrp.getCustomers()) {
 			int j = 0;
 			for (int i = 0; i < n.getReqList().size(); i++) {
-				if (yermaw[j] == '0') {
-					System.out.println("boop");
-				}
+				System.out.println(n.getReqList().get(i));
 				j++;
 			}
 		}
-
-		System.out.println("\n now for weights\n");
-
 		DemoShiz d1 = new DemoShiz();
+		System.out.println("now for scores: ");
+		// d1.halp(booping, nrp);
+		d1.customerValueOnReq(66, nrp.getCustomers().get(2).getReqList());
+		// TODO: seems to be fetching requirements list wrong
 
-		System.out.println("requirement hunting\n");
-		d1.huntforReqScore(104, nrp);
 	}
 
 }
