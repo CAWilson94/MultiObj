@@ -51,8 +51,10 @@ public class FileParser {
 						List<String> tokensList = new ArrayList<String>(Arrays.asList(tokens));
 						if (tokens.length > 1) {
 							// save as whatever
-							System.out.println(currentLine + " is current line");
-							System.out.println(tokensList.size() + " is size");
+							if (Constants.DEBUG) {
+								System.out.println(currentLine + " is current line");
+								System.out.println(tokensList.size() + " is size");
+							}
 							Requirements r = new Requirements(tokensList.size(), tokensList, countBoop);
 							level.add(r);
 							addtoTotalCost(tokensList);
@@ -62,7 +64,9 @@ public class FileParser {
 
 					}
 					nrp.setRequirements(level);
-					System.out.println("should be num dependancies.. " + br.readLine());
+					if (Constants.DEBUG == true) {
+						System.out.println("should be num dependancies.. " + br.readLine());
+					}
 				}
 
 				// Go through all the ID's
@@ -76,12 +80,16 @@ public class FileParser {
 				nrp.setIDReqB(IDReqB);
 
 				// Customer attributes
-				while (words > 2) {
+				while (words > 2 && words < 14) {
+					/**
+					 * May need to change the < value depending on dataset
+					 */
 					customerCount++;
 					customerAttributeExtraction(customerCount, currentLine);
 					words = 0;
 				}
 				nrp.setCustomers(customersList);
+
 			}
 			nrp.setNumCustomers(customerCount);
 
@@ -130,8 +138,12 @@ public class FileParser {
 		customer.setNumRequests(Integer.parseInt(tokens[1]));
 		String[] subTokens = Arrays.copyOfRange(tokens, 2, tokens.length);
 		List<Integer> reqList = new ArrayList<Integer>();
+
 		for (String s : subTokens) {
 			reqList.add(Integer.parseInt(s));
+			if (Constants.DEBUG == true) {
+				System.out.println("bapitty boopity: " + Integer.parseInt(s));
+			}
 		}
 		customer.setReqList(reqList);
 		customersList.add(customer);

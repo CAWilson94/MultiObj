@@ -17,7 +17,7 @@ public class NRPCreator implements Creator<BooleanGenotype> {
 		/**
 		 * Need to change this to the same number of requirements?
 		 */
-		genotype.init(random, 1000); //
+		genotype.init(random, 140); //
 		return genotype;
 	}
 }
