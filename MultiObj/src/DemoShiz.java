@@ -72,12 +72,21 @@ public class DemoShiz {
 		int i = 0;
 		for (Customer n : customerList) {
 			if (n.getReqList().contains(position)) {
-				System.out.println("found a requirement: " + i + " weight of customer is: " + n.getProfit());
+				System.out.println("found a requirement: " + i + " weight of customer is: " + n.getProfit()
+						+ "with weight: " + getDatWeight(position, n.getReqList()));
 			}
 			// Store all into a temp array to work on after?
 			i++;
 		}
 		return null;
+	}
+
+	private int getDatWeight(int requirement, List<Integer> reqList) {
+		int weight = 0;
+		int reqPos = reqList.indexOf(requirement);
+		int[] weights = { 100, 75, 50, 25 };
+		weight = weights[reqPos];
+		return weight;
 	}
 
 	public static void main(String[] args) {
