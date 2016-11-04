@@ -23,11 +23,23 @@ public class DemoShiz {
 		for (int i = 0; i < phenotype.length(); i++) {
 			if (phenotype.charAt(i) == '1') {
 				// Your score vector
-				finalScores.addAll(huntforReqScore(i, nrp));
+				finalScores.add(huntforReqScore(i, nrp));
 			}
 		}
 		System.out.println(finalScores.toString());
-		// TODO: some scores are 0 wtf??
+	}
+
+	public int individualScore(String phenotype, NRP nrp) {
+		int indiScore = 0;
+		for (int i = 0; i < phenotype.length(); i++) {
+			if (phenotype.charAt(i) == '1') {
+				// Your score vector
+				indiScore = huntforReqScore(i, nrp);
+			}
+		}
+		System.out.println(indiScore);
+		return 0;
+
 	}
 
 	/**
@@ -37,12 +49,11 @@ public class DemoShiz {
 	 * @param nrp
 	 * @return List<Integer> current batch of scores from that requirement
 	 */
-	private List<Integer> huntforReqScore(int position, NRP nrp) {
+	private int huntforReqScore(int position, NRP nrp) {
 		List<Customer> customerList = nrp.getCustomers();
 		int i = 0;
 		int score = 0;
-		List<Integer> scoresCurrent = new ArrayList<Integer>();
-		List<Integer> scoresTemp = new ArrayList<Integer>();
+		int scoresCurrent = 0;
 		for (Customer n : customerList) {
 			if (n.getReqList().contains(position)) {
 
@@ -58,7 +69,7 @@ public class DemoShiz {
 			i++;
 		}
 
-		scoresCurrent.add(score);
+		scoresCurrent = score;
 		return scoresCurrent;
 	}
 
@@ -91,7 +102,8 @@ public class DemoShiz {
 
 		DemoShiz d1 = new DemoShiz();
 		System.out.println("now for scores: ");
-		d1.finalScore(booping, nrp);
+		// d1.finalScore(booping, nrp);
+		System.out.println(d1.huntforReqScore(128, nrp));
 	}
 
 }
