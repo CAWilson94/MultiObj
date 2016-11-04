@@ -8,7 +8,7 @@ import org.opt4j.core.genotype.BooleanGenotype;
  * @author Charlotte Wilson
  *
  */
-public class NRPDecoder implements Decoder<BooleanGenotype, String> {
+public class NRP_2Decoder implements Decoder<BooleanGenotype, String> {
 	public String decode(BooleanGenotype genotype) {
 		String phenotype = "";
 		for (int i = 0; i < genotype.size(); i++) {

@@ -93,8 +93,8 @@ public class DemoShiz {
 		FileParser fp = new FileParser();
 		NRP nrp = fp.parseFile();
 
-		NRPCreator c = new NRPCreator();
-		NRPDecoder d = new NRPDecoder();
+		NRP_2Creator c = new NRP_2Creator();
+		NRP_2Decoder d = new NRP_2Decoder();
 		BooleanGenotype boop = c.create();
 		// System.out.println(boop);
 		String booping = d.decode(boop);
