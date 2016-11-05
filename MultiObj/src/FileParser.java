@@ -1,6 +1,9 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,11 +25,14 @@ public class FileParser {
 	public List<Integer> IDReqA = new ArrayList<Integer>();
 	public List<Integer> IDReqB = new ArrayList<Integer>();
 	public List<Requirements> level = new ArrayList<Requirements>();
+	public List<Integer> allCosts = new ArrayList<Integer>();
 
 	/**
 	 * Parsing the file into something more useful
+	 * 
+	 * @return
 	 */
-	public void parseFile() {
+	public NRP parseFile() {
 
 		BufferedReader br = null;
 		String currentLine;
@@ -34,7 +40,8 @@ public class FileParser {
 		int customerCount = 0;
 
 		try {
-			br = new BufferedReader(new FileReader(Constants.FILE_NAME));
+			File file = new File("C:/Users/charl/Desktop/nrp1.txt");
+			br = new BufferedReader(new FileReader(file));
 			while ((currentLine = br.readLine()) != null) {
 				counter++; // Skips line 0
 				if (counter == 1) {
@@ -48,18 +55,22 @@ public class FileParser {
 						List<String> tokensList = new ArrayList<String>(Arrays.asList(tokens));
 						if (tokens.length > 1) {
 							// save as whatever
-							System.out.println(currentLine + " is current line");
-							System.out.println(tokensList.size() + " is size");
+							if (Constants.DEBUG) {
+								System.out.println(currentLine + " is current line");
+								System.out.println(tokensList.size() + " is size");
+							}
 							Requirements r = new Requirements(tokensList.size(), tokensList, countBoop);
 							level.add(r);
-							countBoop++; // Just to add level to Requirements
-											// object
+							addtoTotalCost(tokensList);
+							countBoop++;
 						}
 						reqCounter--;
 
 					}
 					nrp.setRequirements(level);
-					System.out.println("should be num dependancies.. " + br.readLine());
+					if (Constants.DEBUG == true) {
+						System.out.println("should be num dependancies.. " + br.readLine());
+					}
 				}
 
 				// Go through all the ID's
@@ -73,12 +84,16 @@ public class FileParser {
 				nrp.setIDReqB(IDReqB);
 
 				// Customer attributes
-				while (words > 2) {
+				while (words > 2 && words < 14) {
+					/**
+					 * May need to change the < value depending on dataset
+					 */
 					customerCount++;
 					customerAttributeExtraction(customerCount, currentLine);
 					words = 0;
 				}
 				nrp.setCustomers(customersList);
+
 			}
 			nrp.setNumCustomers(customerCount);
 
@@ -90,6 +105,16 @@ public class FileParser {
 			e.printStackTrace();
 		}
 		debug(); // Make sure everything has went into the correct objects
+
+		return nrp;
+	}
+
+	private void addtoTotalCost(List<String> annoyingList) {
+		for (String n : annoyingList) {
+			int nm = Integer.parseInt(n);
+			allCosts.add(nm);
+			nrp.setAllCosts(allCosts);
+		}
 	}
 
 	/**
@@ -110,7 +135,6 @@ public class FileParser {
 	private void customerAttributeExtraction(int customerCount, String currentLine) {
 		// Just to keep track of the right things..
 		Customer customer = new Customer();
-		customer.setCustomerLabel(customerCount);
 
 		// Split line into different attributes
 		String[] tokens = currentLine.split("\\s+");
@@ -118,8 +142,12 @@ public class FileParser {
 		customer.setNumRequests(Integer.parseInt(tokens[1]));
 		String[] subTokens = Arrays.copyOfRange(tokens, 2, tokens.length);
 		List<Integer> reqList = new ArrayList<Integer>();
+
 		for (String s : subTokens) {
 			reqList.add(Integer.parseInt(s));
+			if (Constants.DEBUG == true) {
+				System.out.println("bapitty boopity: " + Integer.parseInt(s));
+			}
 		}
 		customer.setReqList(reqList);
 		customersList.add(customer);
@@ -136,11 +164,6 @@ public class FileParser {
 			System.out.println(nrp.getReqLevel() + " in the object yoooo");
 			System.out.println(nrp.getNumCustomers() + " is num customers in object");
 			System.out.println(nrp.getNumReq() + "is number requirements");
-
-			System.out.println("customers list: ");
-			for (Customer c : nrp.getCustomers()) {
-				System.out.println(c.getCustomerLabel());
-			}
 
 			System.out.println("Requirements A list");
 			for (Integer s : nrp.getIDReqA()) {
@@ -159,6 +182,11 @@ public class FileParser {
 				System.out.println(n.getLevel() + " : is level ");
 			}
 
+			System.out.println("aw the costs");
+			for (Integer n : allCosts) {
+				System.out.println(n);
+			}
+
 		}
 	}
 
@@ -174,7 +202,7 @@ public class FileParser {
 		int total = tokens.length;
 		return total;
 	}
-
+	
 	/**
 	 * May need to put each different object into different methods Still need
 	 * to add every parsed bit into customer objects and such and also link the
@@ -184,7 +212,14 @@ public class FileParser {
 	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
+
 		FileParser fp = new FileParser();
-		fp.parseFile();
+		System.out.println("boop");
+		NRP nrp = fp.parseFile();
+
+		for (Customer n : nrp.getCustomers()) {
+			System.out.println(n.getProfit() + " " + n.getReqList());
+		}
+
 	}
 }

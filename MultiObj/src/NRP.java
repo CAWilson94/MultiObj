@@ -25,6 +25,7 @@ public class NRP {
 	private List<Integer> IDReqB = new ArrayList<Integer>();
 	private List<Customer> customers = new ArrayList<Customer>();
 	private List<Requirements> requirements = new ArrayList<Requirements>();
+	private List<Integer> allCosts = new ArrayList<Integer>();
 
 	/**
 	 * Basically I am lazy and would like the option to make this in any
@@ -188,6 +189,14 @@ public class NRP {
 
 	public void setRequirements(List<Requirements> level) {
 		this.requirements = level;
+	}
+
+	public List<Integer> getAllCosts() {
+		return allCosts;
+	}
+
+	public void setAllCosts(List<Integer> allCosts) {
+		this.allCosts = allCosts;
 	}
 
 }
