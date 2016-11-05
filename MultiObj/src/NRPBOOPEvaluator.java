@@ -31,6 +31,7 @@ public class NRPBOOPEvaluator implements Evaluator<String> {
 	 * @return int individual score
 	 */
 	public double individualScore(String phenotype) {
+
 		double indiScore = 0;
 		for (int i = 0; i < phenotype.length(); i++) {
 			if (phenotype.charAt(i) == '1') {
@@ -48,7 +49,7 @@ public class NRPBOOPEvaluator implements Evaluator<String> {
 					}
 				}
 				System.out.println("score is: " + score);
-				indiScore = score;
+				indiScore += score;
 			}
 		}
 		return indiScore;
