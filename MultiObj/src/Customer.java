@@ -5,7 +5,6 @@ public class Customer {
 
 	private int profit = 0;
 	private int Numrequests = 0;
-	private int customerLabel = 0;
 	private List<Integer> reqList = new ArrayList<Integer>();
 
 	/**
@@ -19,7 +18,6 @@ public class Customer {
 		this.setProfit(profit);
 		this.setNumRequests(Numrequests);
 		this.setReqList(reqList);
-		this.setCustomerLabel(customerLabel);
 	}
 
 	/**
@@ -27,14 +25,6 @@ public class Customer {
 	 */
 	public Customer() {
 
-	}
-
-	public int getCustomerLabel() {
-		return customerLabel;
-	}
-
-	public void setCustomerLabel(int customerLabel) {
-		this.customerLabel = customerLabel;
 	}
 
 	public int getProfit() {

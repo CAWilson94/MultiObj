@@ -19,7 +19,6 @@ public class NRP {
 	private int reqCost = 0;
 	private int dependancies = 0;
 	private int numCustomers = 0;
-	private int totalProfit = 0;
 	// Requirements list for A column
 	private List<Integer> IDReqA = new ArrayList<Integer>();
 	// Requirements list for B column

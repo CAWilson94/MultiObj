@@ -7,25 +7,34 @@ import java.util.Collections;
 import java.util.List;
 
 import org.opt4j.core.Objectives;
+import org.opt4j.core.genotype.BooleanGenotype;
 
 public class NRPBOOPEvaluator implements Evaluator<String> {
+
+	FileParser fp = new FileParser();
+	NRP nrp = fp.parseFile();
 
 	@Override
 	public Objectives evaluate(String phenotype) {
 
-		FileParser fp = new FileParser();
-		NRP nrp = fp.parseFile();
-
 		Objectives objectives = new Objectives();
-		objectives.add("Cost", Sign.MIN, individualCost(phenotype, nrp));
-		objectives.add("Scores", Sign.MAX, individualScore(phenotype, nrp));
+		objectives.add("Cost", Sign.MIN, individualCost(phenotype));
+		objectives.add("Scores", Sign.MAX, individualScore(phenotype));
 		return objectives;
 	}
 
-	public double individualScore(String phenotype, NRP nrp) {
+	/**
+	 * Score of an indvidual
+	 * 
+	 * @param phenotype
+	 * @param nrp
+	 * @return int individual score
+	 */
+	public double individualScore(String phenotype) {
 		double indiScore = 0;
 		for (int i = 0; i < phenotype.length(); i++) {
 			if (phenotype.charAt(i) == '1') {
+				System.out.println("position at : " + i);
 				// Your score vector
 				double score = 0;
 				for (Customer n : nrp.getCustomers()) {
@@ -33,34 +42,31 @@ public class NRPBOOPEvaluator implements Evaluator<String> {
 						double boop = n.getProfit();
 						double totalpr = getTotalProfit(nrp);
 						double profit = boop / totalpr;
-						System.out.println("profit weighting: " + profit);
+						System.out.println("requirement: " + i + " actual profit: " + boop + " profit weighting: "
+								+ profit + " value: " + customerValueOnRequirement(i, n.getReqList()));
 						score += profit * customerValueOnRequirement(i, n.getReqList());
 					}
 				}
-				System.out.println(score);
+				System.out.println("score is: " + score);
 				indiScore = score;
 			}
 		}
-		System.out.println("indiScore");
-		System.out.println(indiScore);
 		return indiScore;
-
 	}
 
 	/**
-	 * TODO: change this so duplicates work..
 	 * 
 	 * @param phenotype
 	 * @param nrp
 	 * @return
 	 */
-	public int individualCost(String phenotype, NRP nrp) {
+	public int individualCost(String phenotype) {
 		int cost = 0;
 		for (int i = 0; i < phenotype.length(); i++) {
 			if (phenotype.charAt(i) == '1') {
 				cost += nrp.getAllCosts().get(i);
+				System.out.println("boop" + nrp.getDependancies());
 				System.out.println("cost is: " + nrp.getAllCosts().get(i) + " position : " + i);
-				// cost = huntforCost(i, nrp);
 			}
 		}
 		System.out.println("cost");
@@ -69,35 +75,51 @@ public class NRPBOOPEvaluator implements Evaluator<String> {
 	}
 
 	/**
-	 * Gets the customer value placed on a requirement
+	 * Get the profit of all customers
 	 * 
-	 * @param requirement
-	 * @param reqList
+	 * @param nrp
 	 * @return
 	 */
-	public int customerValueOnReq(int requirement, List<Integer> reqList) {
-		// TODO: write a version of this that works for the realistic data set
-		int weight = 0;
-		int fraction = 100 / reqList.size();
-		int reqPos = reqList.indexOf(requirement);
-		weight = 100 - (reqPos * fraction);
-		return weight;
-	}
-
-	private double customerValueOnRequirement(int requirement, List<Integer> reqList) {
-		double value = 0;
-		value = reqList.size() - reqList.indexOf(requirement);
-		return value;
-
-	}
-
 	private int getTotalProfit(NRP nrp) {
 		int totalProfit = 0;
 		for (Customer profit : nrp.getCustomers()) {
 			totalProfit += profit.getProfit();
 		}
-
 		System.out.println("total pro: " + totalProfit);
 		return totalProfit;
 	}
+
+	/**
+	 * Get value of a requirement for a single customer
+	 * 
+	 * @param requirement
+	 * @param reqList
+	 * @return
+	 */
+	public double customerValueOnRequirement(int requirement, List<Integer> reqList) {
+		double value = 0;
+		if (reqList.contains(requirement)) {
+			value = reqList.size() - reqList.indexOf(requirement);
+			return value;
+		} else {
+			value = 0;
+			return value;
+		}
+	}
+
+	public static void main(String[] args) {
+		FileParser fp = new FileParser();
+		NRP nrp = fp.parseFile();
+		NRPBOOPEvaluator bop = new NRPBOOPEvaluator();
+		NRPBOOPCreator create = new NRPBOOPCreator();
+		// BooleanGenotype genotype = create.create();
+		// NRPBOOPDecoder decode = new NRPBOOPDecoder();
+		// String phenotype = decode.decode(genotype);
+
+		String phenotype = "001";
+
+		System.out.println("COST IS: " + bop.individualScore(phenotype));
+
+	}
+
 }

@@ -41,13 +41,7 @@ public class FileParser {
 
 		try {
 			File file = new File("C:/Users/charl/Desktop/nrp1.txt");
-			String abPath = file.getAbsolutePath();
-
-			InputStream in = getClass().getResourceAsStream(abPath);
-			// // Replace
-			// constants.file name with resource as input stream: how to read
-			// file from jar file
-			br = new BufferedReader(new FileReader(abPath));
+			br = new BufferedReader(new FileReader(file));
 			while ((currentLine = br.readLine()) != null) {
 				counter++; // Skips line 0
 				if (counter == 1) {
@@ -141,7 +135,6 @@ public class FileParser {
 	private void customerAttributeExtraction(int customerCount, String currentLine) {
 		// Just to keep track of the right things..
 		Customer customer = new Customer();
-		customer.setCustomerLabel(customerCount);
 
 		// Split line into different attributes
 		String[] tokens = currentLine.split("\\s+");
@@ -171,11 +164,6 @@ public class FileParser {
 			System.out.println(nrp.getReqLevel() + " in the object yoooo");
 			System.out.println(nrp.getNumCustomers() + " is num customers in object");
 			System.out.println(nrp.getNumReq() + "is number requirements");
-
-			System.out.println("customers list: ");
-			for (Customer c : nrp.getCustomers()) {
-				System.out.println(c.getCustomerLabel());
-			}
 
 			System.out.println("Requirements A list");
 			for (Integer s : nrp.getIDReqA()) {
@@ -214,17 +202,7 @@ public class FileParser {
 		int total = tokens.length;
 		return total;
 	}
-
-	public void boop() {
-		// String path =
-		// getClass().getClassLoader().getResource("nrp1.txt").toExternalForm();
-		// System.out.println(path);
-
-		File file = new File("nrp1.txt");
-		String abPath = file.getAbsolutePath();
-		System.out.println(abPath);
-	}
-
+	
 	/**
 	 * May need to put each different object into different methods Still need
 	 * to add every parsed bit into customer objects and such and also link the
@@ -238,6 +216,10 @@ public class FileParser {
 		FileParser fp = new FileParser();
 		System.out.println("boop");
 		NRP nrp = fp.parseFile();
-	
+
+		for (Customer n : nrp.getCustomers()) {
+			System.out.println(n.getProfit() + " " + n.getReqList());
+		}
+
 	}
 }
