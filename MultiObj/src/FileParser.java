@@ -40,7 +40,7 @@ public class FileParser {
 		int customerCount = 0;
 
 		try {
-			File file = new File("C:/Users/charl/Desktop/nrp1.txt");
+			File file = new File(Constants.NORM);
 			br = new BufferedReader(new FileReader(file));
 			while ((currentLine = br.readLine()) != null) {
 				counter++; // Skips line 0
@@ -202,7 +202,7 @@ public class FileParser {
 		int total = tokens.length;
 		return total;
 	}
-	
+
 	/**
 	 * May need to put each different object into different methods Still need
 	 * to add every parsed bit into customer objects and such and also link the

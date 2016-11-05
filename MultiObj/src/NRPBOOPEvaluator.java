@@ -33,7 +33,10 @@ public class NRPBOOPEvaluator implements Evaluator<String> {
 				double score = 0;
 				for (Customer n : nrp.getCustomers()) {
 					if (n.getReqList().contains(i)) {
-						score(score, n, i);
+						double boop = n.getProfit();
+						double totalpr = getTotalProfit(nrp);
+						double profit = boop / totalpr;
+						score += profit * customerValueOnRequirement(i, n.getReqList());
 					}
 				}
 				indiScore += score;
@@ -43,22 +46,8 @@ public class NRPBOOPEvaluator implements Evaluator<String> {
 	}
 
 	/**
-	 * calculates a score for a given customer
-	 * 
-	 * @param score
-	 * @param n
-	 * @return
-	 */
-	private double score(double score, Customer n, int position) {
-		double boop = n.getProfit();
-		double totalpr = getTotalProfit(nrp);
-		double profit = boop / totalpr;
-		score += profit * customerValueOnRequirement(position, n.getReqList());
-		return score;
-	}
-
-	/**
 	 * Returns cost for an individual
+	 * 
 	 * @param phenotype
 	 * @param nrp
 	 * @return int cost
@@ -115,7 +104,7 @@ public class NRPBOOPEvaluator implements Evaluator<String> {
 		// NRPBOOPDecoder decode = new NRPBOOPDecoder();
 		// String phenotype = decode.decode(genotype);
 
-		String phenotype = "001";
+		String phenotype = "111";
 
 		System.out.println("COST IS: " + bop.individualScore(phenotype));
 
