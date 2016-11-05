@@ -1,6 +1,9 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -37,7 +40,14 @@ public class FileParser {
 		int customerCount = 0;
 
 		try {
-			br = new BufferedReader(new FileReader(Constants.FILE_NAME));
+			File file = new File("C:/Users/charl/Desktop/nrp1.txt");
+			String abPath = file.getAbsolutePath();
+
+			InputStream in = getClass().getResourceAsStream(abPath);
+			// // Replace
+			// constants.file name with resource as input stream: how to read
+			// file from jar file
+			br = new BufferedReader(new FileReader(abPath));
 			while ((currentLine = br.readLine()) != null) {
 				counter++; // Skips line 0
 				if (counter == 1) {
@@ -109,6 +119,7 @@ public class FileParser {
 		for (String n : annoyingList) {
 			int nm = Integer.parseInt(n);
 			allCosts.add(nm);
+			nrp.setAllCosts(allCosts);
 		}
 	}
 
@@ -204,6 +215,16 @@ public class FileParser {
 		return total;
 	}
 
+	public void boop() {
+		// String path =
+		// getClass().getClassLoader().getResource("nrp1.txt").toExternalForm();
+		// System.out.println(path);
+
+		File file = new File("nrp1.txt");
+		String abPath = file.getAbsolutePath();
+		System.out.println(abPath);
+	}
+
 	/**
 	 * May need to put each different object into different methods Still need
 	 * to add every parsed bit into customer objects and such and also link the
@@ -213,7 +234,10 @@ public class FileParser {
 	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
+
 		FileParser fp = new FileParser();
-		fp.parseFile();
+		System.out.println("boop");
+		NRP nrp = fp.parseFile();
+	
 	}
 }

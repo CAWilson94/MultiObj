@@ -11,8 +11,8 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/charl/Google Drive/CES5/CS547/opt4j-3.1.4/opt4j-3.1.4/lib/guice-multibindings-4.0-beta5.jar"/>
-	<classpathentry kind="lib" path="C:/Users/charl/Google Drive/CES5/CS547/opt4j-3.1.4/opt4j-3.1.4/lib/guice-4.0-beta5.jar"/>
-	<classpathentry kind="lib" path="C:/Users/charl/Google Drive/CES5/CS547/opt4j-3.1.4/opt4j-3.1.4/lib/opt4j-core-3.1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/charl/Desktop/opt4j-3.1.4/opt4j-3.1.4/lib/guice-4.0-beta5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/charl/Desktop/opt4j-3.1.4/opt4j-3.1.4/lib/opt4j-core-3.1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/charl/Desktop/opt4j-3.1.4/opt4j-3.1.4/lib/guice-multibindings-4.0-beta5.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

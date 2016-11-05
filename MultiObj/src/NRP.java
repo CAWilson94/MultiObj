@@ -19,6 +19,7 @@ public class NRP {
 	private int reqCost = 0;
 	private int dependancies = 0;
 	private int numCustomers = 0;
+	private int totalProfit = 0;
 	// Requirements list for A column
 	private List<Integer> IDReqA = new ArrayList<Integer>();
 	// Requirements list for B column
@@ -189,6 +190,14 @@ public class NRP {
 
 	public void setRequirements(List<Requirements> level) {
 		this.requirements = level;
+	}
+
+	public List<Integer> getAllCosts() {
+		return allCosts;
+	}
+
+	public void setAllCosts(List<Integer> allCosts) {
+		this.allCosts = allCosts;
 	}
 
 }

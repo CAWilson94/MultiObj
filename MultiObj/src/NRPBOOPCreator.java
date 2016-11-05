@@ -6,10 +6,10 @@ import org.opt4j.core.genotype.BooleanGenotype;
 /**
  * Create instances of a solution
  * 
- * @author Charelotte Wilson
+ * @author Charlotte Wilson
  *
  */
-public class NRP_2Creator implements Creator<BooleanGenotype> {
+public class NRPBOOPCreator implements Creator<BooleanGenotype> {
 	Random random = new Random();
 
 	public BooleanGenotype create() {
