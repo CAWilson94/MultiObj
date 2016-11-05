@@ -1,13 +1,9 @@
 
-import org.opt4j.core.problem.Evaluator;
-import org.opt4j.core.Objective.Sign;
-
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
+import org.opt4j.core.Objective.Sign;
 import org.opt4j.core.Objectives;
-import org.opt4j.core.genotype.BooleanGenotype;
+import org.opt4j.core.problem.Evaluator;
 
 public class NRPBOOPEvaluator implements Evaluator<String> {
 
@@ -31,24 +27,15 @@ public class NRPBOOPEvaluator implements Evaluator<String> {
 	 * @return int individual score
 	 */
 	public double individualScore(String phenotype) {
-
 		double indiScore = 0;
 		for (int i = 0; i < phenotype.length(); i++) {
 			if (phenotype.charAt(i) == '1') {
-				System.out.println("position at : " + i);
-				// Your score vector
 				double score = 0;
 				for (Customer n : nrp.getCustomers()) {
 					if (n.getReqList().contains(i)) {
-						double boop = n.getProfit();
-						double totalpr = getTotalProfit(nrp);
-						double profit = boop / totalpr;
-						System.out.println("requirement: " + i + " actual profit: " + boop + " profit weighting: "
-								+ profit + " value: " + customerValueOnRequirement(i, n.getReqList()));
-						score += profit * customerValueOnRequirement(i, n.getReqList());
+						score(score, n, i);
 					}
 				}
-				System.out.println("score is: " + score);
 				indiScore += score;
 			}
 		}
@@ -56,22 +43,33 @@ public class NRPBOOPEvaluator implements Evaluator<String> {
 	}
 
 	/**
+	 * calculates a score for a given customer
 	 * 
+	 * @param score
+	 * @param n
+	 * @return
+	 */
+	private double score(double score, Customer n, int position) {
+		double boop = n.getProfit();
+		double totalpr = getTotalProfit(nrp);
+		double profit = boop / totalpr;
+		score += profit * customerValueOnRequirement(position, n.getReqList());
+		return score;
+	}
+
+	/**
+	 * Returns cost for an individual
 	 * @param phenotype
 	 * @param nrp
-	 * @return
+	 * @return int cost
 	 */
 	public int individualCost(String phenotype) {
 		int cost = 0;
 		for (int i = 0; i < phenotype.length(); i++) {
 			if (phenotype.charAt(i) == '1') {
 				cost += nrp.getAllCosts().get(i);
-				System.out.println("boop" + nrp.getDependancies());
-				System.out.println("cost is: " + nrp.getAllCosts().get(i) + " position : " + i);
 			}
 		}
-		System.out.println("cost");
-		System.out.println(cost);
 		return cost;
 	}
 
