@@ -3,8 +3,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -35,10 +33,18 @@ public class FileParser {
 		int customerCount = 0;
 
 		try {
-			File file = new File(Constants.REAL);
+			File file = new File("C:/Users/charl/Desktop/opt4j-3.1.4/opt4j-3.1.4/nrp-e1.txt");
 			br = new BufferedReader(new FileReader(file));
 
 			while ((currentLine = br.readLine()) != null) {
+
+				counter++;
+
+				if (counter == 3) {
+					String[] tokens = currentLine.split("\\s+");
+					List<String> tokensList = new ArrayList<String>(Arrays.asList(tokens));
+					addtoTotalCost(tokensList);
+				}
 
 				int words = 0;
 				words += currentLine.split("\\s+").length;
@@ -63,7 +69,6 @@ public class FileParser {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		return nrp;
 	}
 
@@ -241,25 +246,5 @@ public class FileParser {
 		String[] tokens = currentLine.split("\\s+");
 		int total = tokens.length;
 		return total;
-	}
-
-	/**
-	 * May need to put each different object into different methods Still need
-	 * to add every parsed bit into customer objects and such and also link the
-	 * correct attributes to each other
-	 * 
-	 * @param args
-	 * @throws IOException
-	 */
-	public static void main(String[] args) throws IOException {
-
-		FileParser fp = new FileParser();
-		System.out.println("boop");
-		NRP nrp = fp.parseReadData();
-
-		for (Customer n : nrp.getCustomers()) {
-			System.out.println(n.getProfit() + " " + n.getReqList());
-		}
-
 	}
 }
