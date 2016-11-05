@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,6 +27,45 @@ public class FileParser {
 	public List<Integer> IDReqB = new ArrayList<Integer>();
 	public List<Requirements> level = new ArrayList<Requirements>();
 	public List<Integer> allCosts = new ArrayList<Integer>();
+
+	public NRP parseReadData() {
+		BufferedReader br = null;
+		String currentLine;
+		int counter = 0;
+		int customerCount = 0;
+
+		try {
+			File file = new File(Constants.REAL);
+			br = new BufferedReader(new FileReader(file));
+
+			while ((currentLine = br.readLine()) != null) {
+
+				int words = 0;
+				words += currentLine.split("\\s+").length;
+				// Customer attributes
+				while (words > 2 && words < 3000) {
+					/**
+					 * May need to change the < value depending on dataset
+					 */
+					customerCount++;
+					customerAttributeExtraction(customerCount, currentLine);
+					words = 0;
+				}
+				nrp.setCustomers(customersList);
+			}
+			nrp.setNumCustomers(customerCount);
+
+			br.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return nrp;
+	}
 
 	/**
 	 * Parsing the file into something more useful
@@ -215,7 +255,7 @@ public class FileParser {
 
 		FileParser fp = new FileParser();
 		System.out.println("boop");
-		NRP nrp = fp.parseFile();
+		NRP nrp = fp.parseReadData();
 
 		for (Customer n : nrp.getCustomers()) {
 			System.out.println(n.getProfit() + " " + n.getReqList());
